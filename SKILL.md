@@ -1,6 +1,6 @@
 ---
 name: dami-article-workflow
-description: Fact-check, persona-adapt, format, and optionally publish Word or Markdown articles for 大米的小站. Use when the user asks to review, rewrite, prepare, or publish a text article for this site; do not use for video or audio ingestion.
+description: Fact-check, persona-adapt, naturalize, format, and optionally publish Word or Markdown articles for 大米的小站. Use when the user asks to review, rewrite, reduce formulaic AI tone, prepare, or publish a text article for this site; do not use for video or audio ingestion.
 ---
 
 # 大米文章工作流
@@ -19,11 +19,12 @@ Turn an authorized `.docx` or `.md` source into a factual, credible article that
 
 1. Always read [references/persona.md](references/persona.md) before evaluating or rewriting an article.
 2. Always read [references/editorial-workflow.md](references/editorial-workflow.md) before fact-checking or drafting.
-3. Read [references/website-publishing.md](references/website-publishing.md) only when the user asks to update, publish, commit, or push the website.
+3. Read [references/writing-voice.md](references/writing-voice.md) and [references/natural-writing.md](references/natural-writing.md) before rewriting or polishing article prose, or when the user asks to assess formulaic AI tone. They are not required for an audit limited to facts or persona.
+4. Read [references/website-publishing.md](references/website-publishing.md) only when the user asks to update, publish, commit, or push the website.
 
 ## Select the mode from the request
 
-- **Audit:** The user asks whether the article is suitable or says not to modify it. Report factual issues, persona conflicts, and the recommended editing depth. Do not rewrite files.
+- **Audit:** The user asks whether the article is suitable or says not to modify it. Report factual issues, persona conflicts, requested natural-expression problems, and the recommended editing depth. Do not rewrite files.
 - **Draft:** The user asks for adaptation, rewriting, or polishing without explicitly asking to publish. Produce the revised article and an editorial note. Do not touch the website or Git.
 - **Publish:** The user explicitly asks to publish, update the website, or submit to GitHub. Complete the draft workflow, integrate it into the current site, validate it, and perform only the authorized Git actions.
 
@@ -40,9 +41,11 @@ If the request is ambiguous between Draft and Publish, choose Draft.
 4. Mark each material claim as confirmed, needs qualification, outdated, unverified, incorrect, or opinion. Correct errors, qualify scope and dates, and remove nonessential claims that remain unverified.
 5. Adapt the article against `persona.md`. Never convert another person's experience into the user's first-person experience, invent matters or clients, inflate seniority, or disclose employer-confidential information.
 6. Rebuild the article where necessary instead of mechanically replacing words. Preserve sound ideas, but give the article a clear thesis, credible first-person position, short Chinese paragraphs, and a restrained conclusion.
-7. Apply the website editorial format from `editorial-workflow.md`. Use official inline links or a factual reference section only when useful for the article itself.
-8. Report the editing depth, material fact corrections, persona changes, and remaining uncertainty. Do not burden the user with trivial copyedits.
-9. In Publish mode, follow `website-publishing.md`, run `scripts/validate_article.py`, build the site, and verify the rendered archive and article page before Git submission.
+7. Run the natural-expression pass from `natural-writing.md`, calibrated by `writing-voice.md`. Remove formulaic framing only where it harms clarity or voice; do not manufacture anecdotes, opinions, colloquialisms, or deliberate errors to appear human.
+8. Perform a regression check against the claim inventory and persona after prose edits. Restore any altered fact, attribution, legal qualifier, uncertainty, quotation, link, or scope condition.
+9. Apply the website editorial format from `editorial-workflow.md`. Use official inline links or a factual reference section only when useful for the article itself.
+10. Report the editing depth, material fact corrections, persona changes, and remaining uncertainty. Do not burden the user with trivial copyedits or an “AI score.”
+11. In Publish mode, follow `website-publishing.md`, run `scripts/validate_article.py`, build the site, and verify the rendered archive and article page before Git submission.
 
 ## Decision rules
 

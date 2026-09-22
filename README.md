@@ -2,13 +2,14 @@
 
 `dami-article-workflow` 是为“大米的小站”定制的 Codex Skill，用于把已有的 Word 或 Markdown 文稿整理成事实可靠、符合大米真实经历、并能直接进入网站发布流程的文章。
 
-它不是通用洗稿工具，也不处理视频或音频。核心工作是把事实核查、人设适配、文字编辑和网站发布连接成一套可重复执行的流程。
+它不是通用洗稿工具，也不处理视频或音频。核心工作是把事实核查、人设适配、自然表达校准、文字编辑和网站发布连接成一套可重复执行的流程。
 
 ## 主要能力
 
 - 读取 `.docx` 和 `.md` 文稿；
 - 提取并核查机构、项目、法律、数字、时间等事实主张；
 - 按大米当前职业经历调整叙述身份和语气；
+- 清理模板化 AI 腔、报告腔和说教感，同时保护事实、限定条件与专业语域；
 - 根据原稿质量选择轻度润色、中度改编或深度重构；
 - 生成符合“大米的小站”格式的标题、摘要、分类、文章 ID 和 Markdown 正文；
 - 在明确授权后更新网站、构建、浏览器验证并提交 GitHub；
@@ -38,6 +39,12 @@ $dami-article-workflow 对这篇 Markdown 文章进行事实核查，改成符�
 
 如果请求没有明确说明是否发布，Skill 默认使用草稿模式。
 
+也可以明确要求在事实和人设处理之后减少模板化 AI 腔：
+
+```text
+$dami-article-workflow 核查并改写这篇文章，保持法律表述准确，再按我的写作声线减少 AI 味，先不要发布。
+```
+
 ### 发布模式
 
 只有用户明确要求发布、更新网站或提交 GitHub 时才执行网站和 Git 操作。
@@ -59,6 +66,14 @@ Skill 使用可维护的 [`references/persona.md`](references/persona.md) 作为
 - 不包装成资深行业权威或自媒体从业者。
 
 人设文件也规定了雇主信息、内部数据、客户信息和具体法律意见的保密边界。
+
+## 自然表达校准
+
+Skill 会在事实核查和人设适配之后进行自然表达校准，重点处理空泛开场、纠正读者的姿态、教师式自问自答、机械排比、报告腔、重复总结和强行升华。
+
+这一步不以规避 AI 检测为目标，不输出所谓“AI 率”，也不会通过编造经历、故意写错或强塞口头禅来制造“人味”。单独出现一个连接词、引号、破折号或排比句也不会自动触发修改。
+
+[`references/writing-voice.md`](references/writing-voice.md) 保存稳定的写作偏好；用户提供自己的最终修改版后，可以在明确授权下逐步更新这份声线档案。
 
 ## 安装
 
@@ -90,6 +105,8 @@ dami-article-workflow/
 ├─ references/
 │  ├─ persona.md
 │  ├─ editorial-workflow.md
+│  ├─ natural-writing.md
+│  ├─ writing-voice.md
 │  └─ website-publishing.md
 └─ scripts/
    └─ validate_article.py
@@ -98,6 +115,8 @@ dami-article-workflow/
 - `SKILL.md`：模式选择、执行流程和权限边界；
 - `persona.md`：大米的真实经历、合适视角与禁止夸大的内容；
 - `editorial-workflow.md`：事实核查、改写强度和网站文章风格；
+- `natural-writing.md`：自然表达检查、保护边界与终稿自检；
+- `writing-voice.md`：与人设事实分离的大米长期写作声线；
 - `website-publishing.md`：网站集成、构建、浏览器检查和 Git 要求；
 - `validate_article.py`：网站文章目录的确定性校验。
 
