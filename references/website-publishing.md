@@ -4,13 +4,17 @@
 
 - 默认本地路径：`F:\Git上的程序等等\sumin_website`
 - 技术栈：Vite + React 单页网站
-- 文章正文：`public/articles/*.md`
+- 文章正文：`public/articles/*.md` 或 `*.html`；HTML 接入遵循网站的 `docs/HTML_AUTHORING.md`，不经过本 Skill 的编辑流程。
 - 文章索引：`public/articles/index.json`
 - GitHub：`https://github.com/maxlixiang/sumin-blog`
 
 开始前必须检查当前代码、`git status`、文章索引和实际页面。以当前工作区为准，不假定本文件记录的页面实现永远不变。
 
 ## 发布前准备
+
+先区分“编辑后发布”和“直接发布”。原样发布只做技术集成；不得自动核查、改写、匹配人设或改标题。只修改格式的请求限定在用户指定的格式范围。主题 `category` 与来源 `sourceType` 分开，来源可为 `original`（原创）、`repost`（转载）、`ai-research`（AI 共研）；以用户确认的信息为准。
+
+原样导入 HTML 时，复制文件后比较 SHA-256，确保文件内容与输入一致。网站隔离渲染器会做脚本安全处理；如需另附图表配置，数据应与原稿一致，不改报告正文。未经授权的内容改动不得作为“兼容处理”偷偷加入。
 
 为文章确定：
 

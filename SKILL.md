@@ -1,6 +1,6 @@
 ---
 name: dami-article-workflow
-description: Fact-check, persona-adapt, naturalize, format, and optionally publish Word or Markdown articles for 大米的小站. Use when the user asks to review, rewrite, reduce formulaic AI tone, prepare, or publish a text article for this site; do not use for video or audio ingestion.
+description: Fact-check, persona-adapt, naturalize, and format Word or Markdown articles for 大米的小站, with optional publication after editing. Use for editorial review, rewriting, polishing, or fact-checking; do not automatically invoke for unchanged uploads, metadata-only edits, HTML imports, video, or audio.
 ---
 
 # 大米文章工作流
@@ -9,6 +9,9 @@ Turn an authorized `.docx` or `.md` source into a factual, credible article that
 
 ## Scope and assumptions
 
+- Publication alone does not imply editorial processing. When the user says “原样发布”, “直接上传”, “不改内容”, or requests only source labels/metadata, use the ordinary website integration workflow without invoking this skill's editorial pipeline. Do not run fact-checking, persona adaptation, naturalization, or title/body rewriting, and do not load editorial references. Perform only authorized formatting/integration, UTF-8, resource, build, browser, and Git checks. HTML imports are outside this skill and use the website's HTML support directly.
+- If this skill is explicitly invoked with a no-edit publication request, respect that constraint and skip the editorial workflow; read only `references/website-publishing.md` for applicable technical checks. If the user authorizes only specific formatting changes, make only those changes. Do not silently convert direct publication into drafting.
+
 - Accept only Word (`.docx`) and Markdown (`.md`) source files. Ask the user to convert other formats; do not expand into video, audio, transcript, or link-ingestion workflows.
 - Assume the user owns the source or has permission to adapt and republish it. Do not repeat a routine copyright audit or require an attribution section.
 - Official links may still be added where they substantiate factual claims or improve credibility. Do not add a generic “灵感来源” section unless the user requests one.
@@ -16,6 +19,8 @@ Turn an authorized `.docx` or `.md` source into a factual, credible article that
 - Publishing, Git commits, and pushes require explicit user authorization in the current request. Authorization to edit a draft does not authorize publication.
 
 ## Load the relevant references
+
+The reference routing below applies only to editorial work. Direct publication explicitly requested through this skill reads only the publishing reference and skips the remaining workflow.
 
 1. Always read [references/persona.md](references/persona.md) before evaluating or rewriting an article.
 2. Always read [references/editorial-workflow.md](references/editorial-workflow.md) before fact-checking or drafting.
@@ -26,7 +31,7 @@ Turn an authorized `.docx` or `.md` source into a factual, credible article that
 
 - **Audit:** The user asks whether the article is suitable or says not to modify it. Report factual issues, persona conflicts, requested natural-expression problems, and the recommended editing depth. Do not rewrite files.
 - **Draft:** The user asks for adaptation, rewriting, or polishing without explicitly asking to publish. Produce the revised article and an editorial note. Do not touch the website or Git.
-- **Publish:** The user explicitly asks to publish, update the website, or submit to GitHub. Complete the draft workflow, integrate it into the current site, validate it, and perform only the authorized Git actions.
+- **Publish after editing:** The user asks for editorial work and explicitly authorizes publication. Complete only the requested editorial steps, integrate the approved result into the current site, validate it, and perform only the authorized Git actions. “发布” by itself does not authorize rewriting; follow the direct-publication boundary above.
 
 If the request is ambiguous between Draft and Publish, choose Draft.
 

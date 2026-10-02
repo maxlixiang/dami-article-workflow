@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the Markdown article catalog used by 大米的小站."""
+"""Validate the Markdown/HTML article catalog used by 大米的小站."""
 
 from __future__ import annotations
 
@@ -67,9 +67,15 @@ def validate(project_root: Path) -> list[str]:
             errors.append(f"{label}的日期应为 YYYY.MM.DD：{entry['date']}")
 
         content = entry["content"]
-        if not content.startswith("/articles/") or not content.endswith(".md"):
-            errors.append(f"{label}的 content 应为 /articles/*.md：{content}")
+        article_format = entry.get("format", "markdown")
+        extension = ".html" if article_format == "html" else ".md"
+        if article_format not in ("html", "markdown"):
+            errors.append(f"{label}的 format 应为 markdown 或 html")
+        if not content.startswith("/articles/") or not content.endswith(extension) or ".." in Path(content).parts:
+            errors.append(f"{label}的 content 应为 /articles/*{extension}：{content}")
             continue
+        if "sourceType" in entry and entry["sourceType"] not in ("original", "repost", "ai-research"):
+            errors.append(f"{label}的 sourceType 无效")
         if content in seen_content:
             errors.append(f"重复的正文路径：{content}")
         seen_content.add(content)
@@ -83,6 +89,22 @@ def validate(project_root: Path) -> list[str]:
             markdown = read_utf8(article_path)
         except ValueError as exc:
             errors.append(str(exc))
+            continue
+
+        if article_format == "html":
+            if not markdown.strip():
+                errors.append(f"HTML 正文为空：{article_path.name}")
+            charts = entry.get("charts")
+            if charts:
+                if not isinstance(charts, str) or not charts.startswith("/articles/") or not charts.endswith(".json") or ".." in Path(charts).parts:
+                    errors.append(f"{label}的 charts 应为 /articles/*.json")
+                else:
+                    try:
+                        specs = json.loads(read_utf8(project_root / "public" / charts.lstrip("/")))
+                        if not isinstance(specs, list):
+                            errors.append(f"{label}的图表配置应为数组")
+                    except (OSError, ValueError) as exc:
+                        errors.append(f"{label}的图表配置读取失败：{exc}")
             continue
 
         headings = H1_PATTERN.findall(markdown)
