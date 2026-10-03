@@ -1,4 +1,4 @@
 interface:
   display_name: "大米文章工作流"
-  short_description: "核查事实、匹配人设、校准文风并整理发布 Word 或 Markdown 文章"
-  default_prompt: "Use $dami-article-workflow to fact-check, persona-adapt, naturalize, and prepare this Word or Markdown article for 大米的小站."
+  short_description: "最小修改适配人设与网站格式，事实核查可选，授权后发布文章"
+  default_prompt: "Use $dami-article-workflow to minimally adapt this Word or Markdown article to 大米's persona and website format; fact-check only if requested and publish only when authorized."
