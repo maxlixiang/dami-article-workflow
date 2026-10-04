@@ -32,9 +32,11 @@ python -X utf8 scripts/optimize_article_image.py "选定原图.png" "F:\Git上�
 :::figure{type="cover"}
 ![描述实际画面的替代文字](/article-assets/<文章ID>/cover.webp)
 
-*AI 生成的主题示意图。*
+*图片由AI生成*
 :::
 ```
+
+AI 封面图注固定写作“图片由AI生成”，无句号，用 Markdown 星号包裹显示为斜体；不要改普通图表说明。此简短来源标记不改变上面的真实性边界。
 
 纯文字文章不插入空白占位。真实照片／原稿图片保留其归属，不自动标为 AI 图。生成配图不将正文来源分类改为 AI 共研，来源分类仍由用户确认。
 
