@@ -1,4 +1,4 @@
 interface:
   display_name: "大米文章工作流"
-  short_description: "最小修改适配人设与网站格式，事实核查可选，授权后发布文章"
-  default_prompt: "Use $dami-article-workflow to minimally adapt this Word or Markdown article to 大米's persona and website format; fact-check only if requested and publish only when authorized."
+  short_description: "最小修改适配人设与网站格式，事实核查和写实配图可选，授权后发布"
+  default_prompt: "Use $dami-article-workflow to minimally adapt this Word or Markdown article to 大米's persona and website format; fact-check and generate a photorealistic theme cover only if requested, and publish only when authorized."
