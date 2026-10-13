@@ -28,7 +28,7 @@ def read_utf8(path: Path) -> str:
 
 def validate(project_root: Path) -> list[str]:
     errors: list[str] = []
-    index_path = project_root / "public" / "articles" / "index.json"
+    index_path = project_root / "public" / "article-data" / "index.json"
     if not index_path.is_file():
         return [f"找不到文章索引：{index_path}"]
 
@@ -71,8 +71,8 @@ def validate(project_root: Path) -> list[str]:
         extension = ".html" if article_format == "html" else ".md"
         if article_format not in ("html", "markdown"):
             errors.append(f"{label}的 format 应为 markdown 或 html")
-        if not content.startswith("/articles/") or not content.endswith(extension) or ".." in Path(content).parts:
-            errors.append(f"{label}的 content 应为 /articles/*{extension}：{content}")
+        if not content.startswith("/article-data/") or not content.endswith(extension) or ".." in Path(content).parts:
+            errors.append(f"{label}的 content 应为 /article-data/*{extension}：{content}")
             continue
         if "sourceType" in entry and entry["sourceType"] not in ("original", "repost", "ai-research"):
             errors.append(f"{label}的 sourceType 无效")
@@ -96,8 +96,8 @@ def validate(project_root: Path) -> list[str]:
                 errors.append(f"HTML 正文为空：{article_path.name}")
             charts = entry.get("charts")
             if charts:
-                if not isinstance(charts, str) or not charts.startswith("/articles/") or not charts.endswith(".json") or ".." in Path(charts).parts:
-                    errors.append(f"{label}的 charts 应为 /articles/*.json")
+                if not isinstance(charts, str) or not charts.startswith("/article-data/") or not charts.endswith(".json") or ".." in Path(charts).parts:
+                    errors.append(f"{label}的 charts 应为 /article-data/*.json")
                 else:
                     try:
                         specs = json.loads(read_utf8(project_root / "public" / charts.lstrip("/")))
@@ -132,7 +132,7 @@ def main() -> int:
             print(f"- {error}", file=sys.stderr)
         return 1
 
-    index_path = project_root / "public" / "articles" / "index.json"
+    index_path = project_root / "public" / "article-data" / "index.json"
     article_count = len(json.loads(read_utf8(index_path)))
     print(f"[OK] {article_count} 篇文章通过目录、UTF-8、元数据和标题检查。")
     return 0

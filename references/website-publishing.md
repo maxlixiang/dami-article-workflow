@@ -4,8 +4,9 @@
 
 - 默认本地路径：`F:\Git上的程序等等\sumin_website`
 - 技术栈：Vite + React 单页网站
-- 文章正文：`public/articles/*.md` 或 `*.html`；HTML 接入遵循网站的 `docs/HTML_AUTHORING.md`，不经过本 Skill 的编辑流程。
-- 文章索引：`public/articles/index.json`
+- 文章正文：`public/article-data/*.md` 或 `*.html`；HTML 接入遵循网站的 `docs/HTML_AUTHORING.md`，不经过本 Skill 的编辑流程。
+- 文章索引：`public/article-data/index.json`
+- 阅读页地址：`/articles/<id>`；它是 React 页面路由，不是正文或索引的存储目录。正文与图表配置 URL 使用 `/article-data/`，不要在 `public/articles/` 写入数据，以免与阅读页路由冲突。
 - GitHub：`https://github.com/maxlixiang/sumin-blog`
 
 开始前必须检查当前代码、`git status`、文章索引和实际页面。以当前工作区为准，不假定本文件记录的页面实现永远不变。
@@ -25,15 +26,15 @@
 - 与现有分类粒度一致的分类；
 - 准确但不夸张的标题；
 - 一句话摘要；
-- `/articles/<id>.md` 正文路径。
+- `/article-data/<id>.md` 正文路径。
 
 不要修改无关文章、图片、主页结构或个人经历。不要覆盖用户在 GitHub 或本地已有的修改。
 
 ## 写入网站
 
-1. 在 `public/articles/` 新建 UTF-8 Markdown 文件。
+1. 在 `public/article-data/` 新建 UTF-8 Markdown 文件。
 2. 使用一个一级标题，并让它与索引中的标题一致。
-3. 在 `public/articles/index.json` 顶部加入新条目，保持有效 JSON。
+3. 在 `public/article-data/index.json` 顶部加入新条目，保持有效 JSON。
 4. 不在正文中重复网站已经单独显示的元数据。
 5. 官方链接可放在对应事实附近；只有文章确实需要时才增加参考资料或免责声明。
 
